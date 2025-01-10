@@ -1,0 +1,227 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - SpendWise</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a href="/" class="logo text-center">Spend<span>Wise.</span></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="expenses.html">Expenses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reports.html">Reports</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="images/person.jpg"
+                  alt="User Avatar"
+                  style="width: 30px; height: 30px; border-radius: 50%"
+                />
+                <span id="user">Username</span>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="userDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="settings.html">Settings</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger" href="logout.html"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="settings-card">
+        <h3 class="section-title">Profile Settings</h3>
+        <form id="profileForm" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              value="user@example.com"
+              required
+            />
+            <div class="invalid-feedback">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="currentPassword" class="form-label"
+              >Current Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="currentPassword"
+              required
+            />
+            <div class="invalid-feedback">
+              Please enter your current password.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="newPassword"
+              minlength="8"
+            />
+            <div class="invalid-feedback">
+              Password must be at least 8 characters long.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Confirm New Password</label
+            >
+            <input type="password" class="form-control" id="confirmPassword" />
+            <div class="invalid-feedback">Passwords do not match.</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <div id="profileSuccess" class="success-message">
+            Profile settings updated successfully!
+          </div>
+        </form>
+      </div>
+
+      <div class="settings-card">
+        <h3 class="section-title">Preferences</h3>
+        <form id="preferencesForm" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="currency" class="form-label">Currency</label>
+            <select class="form-select" id="currency" required>
+              <option value="USD">USD - US Dollar</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="GBP">GBP - British Pound</option>
+              <option value="JPY">JPY - Japanese Yen</option>
+              <option value="CAD">CAD - Canadian Dollar</option>
+              <option value="AUD">AUD - Australian Dollar</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="language" class="form-label">Language</label>
+            <select class="form-select" id="language" required>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="pt">Português</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Save Preferences
+          </button>
+          <div id="preferencesSuccess" class="success-message">
+            Preferences updated successfully!
+          </div>
+        </form>
+      </div>
+
+      <div class="settings-card">
+        <h3 class="section-title">Account Actions</h3>
+        <button id="logoutBtn" class="btn btn-danger">
+          <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const forms = document.querySelectorAll(".needs-validation");
+      forms.forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (!form.checkValidity()) {
+            event.stopPropagation();
+          } else {
+            const formId = form.id;
+            const successMessage = document.getElementById(
+              formId === "profileForm" ? "profileSuccess" : "preferencesSuccess"
+            );
+            setTimeout(() => {
+              successMessage.style.display = "block";
+              setTimeout(() => {
+                successMessage.style.display = "none";
+              }, 3000);
+            }, 500);
+          }
+          form.classList.add("was-validated");
+        });
+      });
+      const newPassword = document.getElementById("newPassword");
+      const confirmPassword = document.getElementById("confirmPassword");
+      confirmPassword.addEventListener("input", () => {
+        if (confirmPassword.value !== newPassword.value) {
+          confirmPassword.setCustomValidity("Passwords do not match");
+        } else {
+          confirmPassword.setCustomValidity("");
+        }
+      });
+      newPassword.addEventListener("input", () => {
+        if (confirmPassword.value !== "") {
+          if (confirmPassword.value !== newPassword.value) {
+            confirmPassword.setCustomValidity("Passwords do not match");
+          } else {
+            confirmPassword.setCustomValidity("");
+          }
+        }
+      });
+      document.getElementById("logoutBtn").addEventListener("click", () => {});
+    </script>
+  </body>
+</html>
