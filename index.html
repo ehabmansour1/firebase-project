@@ -316,5 +316,69 @@
         }
       });
     </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCmbKTx5knVCm93Wq6FaeU6M1e3ilAQ9UU",
+        authDomain: "spendwise-19dce.firebaseapp.com",
+        projectId: "spendwise-19dce",
+        storageBucket: "spendwise-19dce.firebasestorage.app",
+        messagingSenderId: "984774602833",
+        appId: "1:984774602833:web:356f2f46f7009eb84e8870",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const loginLink = document.querySelector("a[href='login.html']");
+        const signUpLink = document.querySelector("a[href='register.html']");
+        const navbarNav = document.querySelector("#navbarNav .navbar-nav");
+
+        // Listen for authentication state changes
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            // User is logged in
+            loginLink.style.display = "none";
+            signUpLink.style.display = "none";
+
+            const dashboardLink = document.createElement("a");
+            dashboardLink.classList.add("nav-link");
+            dashboardLink.href = "dashboard.html";
+            dashboardLink.textContent = "Dashboard";
+
+            const logoutLink = document.createElement("a");
+            logoutLink.classList.add("nav-link");
+            logoutLink.href = "#";
+            logoutLink.id = "logoutBtn";
+            logoutLink.textContent = "Logout";
+
+            navbarNav.appendChild(dashboardLink);
+            navbarNav.appendChild(logoutLink);
+
+            // Logout functionality
+            logoutLink.addEventListener("click", async () => {
+              try {
+                await signOut(auth);
+                window.location.href = "login.html"; // Redirect to login after logout
+              } catch (error) {
+                console.error("Error signing out:", error);
+              }
+            });
+          } else {
+            // User is not logged in
+            loginLink.style.display = "block";
+            signUpLink.style.display = "block";
+          }
+        });
+      });
+    </script>
   </body>
 </html>

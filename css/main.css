@@ -5,6 +5,7 @@ body {
 }
 .logo {
   margin-bottom: 12px;
+  text-decoration: none;
 }
 .hero-title,
 .logo::after {
@@ -565,6 +566,8 @@ body::before {
 }
 .chart-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .chart-label {
   font-size: 0.9rem;
@@ -864,4 +867,14 @@ input::placeholder {
     align-items: center;
     gap: 11px;
   }
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+#expensesTable td {
+  background-color: #111a21;
+  color: white;
 }
